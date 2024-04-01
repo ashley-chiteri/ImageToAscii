@@ -1,3 +1,4 @@
+#author Ashley Chiteri
 from PIL import Image
 
 path = input("Enter the path of the image: \n")
