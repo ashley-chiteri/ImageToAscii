@@ -1,27 +1,36 @@
 #author Ashley Chiteri
 from PIL import Image
 
-path = input("Enter the path of the image: \n")
+#ascii characters with descending order of intensity
+chars = ["@", "#", "s", "%", "?", "*", "+", ";", ":", ",", "."]
 
-#trying to load the image using exceptions
-try:
-    img = Image.open(path)
-
-except:
-    print(path, "could not the image")
-
-#RESIZING the image to reduce chaos
-width, height = img.size
-aspect_ratio = height/width
-new_width = 120
-new_height = aspect_ratio * new_width * 0.55
-img = img.resize((new_width, int(new_height)))
+#resizing the image
+def resize_image(img, new_width=100):
+    width, height = img.size
+    aspect_ratio = height / width
+    new_height = int(aspect_ratio * new_width)
+    resized_img = img.resize((new_width, new_height))
+    return(resized_img)
 
 #convert the image to a greyscale
+
+def main():
+    #getting an image form the user
+    path = input("Enter the path of the image: \n")
+
+    #trying to load the image using exceptions
+    try:
+        img = Image.open(path)
+
+    except:
+        print(path, "could not the image")
+
+main()
+
+
 img = img.convert("L")
 
-#a list of the ascii characters from darkests to lightest
-chars = ["@", "J", "D", "%", "*", "P", "+", "Y", "$", ",", "."]
+
 
 pixels = img.getdata()
 new_pixels = [chars[pixel//25] for pixel in pixels]
